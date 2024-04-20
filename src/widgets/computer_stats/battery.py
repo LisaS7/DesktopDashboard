@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import psutil
 from collections import namedtuple
+from src import config
 
 # sbattery(percent=93, secsleft=16628, power_plugged=False)
 BatteryMock = namedtuple("BatteryMock", ["percent", "secsleft", "power_plugged"])
@@ -10,13 +11,15 @@ class BatteryWidget(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         self.master = parent
-        self.title = ctk.CTkLabel(self, text="Battery")
+        self.paragraph_font = ctk.CTkFont(family=config.FONT_FAMILY, size=config.PARAGRAPH_SIZE)
+        self.annotation_font = ctk.CTkFont(family=config.FONT_FAMILY, size=config.ANNOTATION_SIZE)
+        self.title = ctk.CTkLabel(self, text="Battery", font=self.paragraph_font)
         # self.battery = BatteryMock(93, 16628, False)  #psutil.sensors_battery()
 
         self.battery_bar = ctk.CTkProgressBar(self)
         self.update_battery()
 
-        self.time_remaining_label = ctk.CTkLabel(self, text="None")
+        self.time_remaining_label = ctk.CTkLabel(self, text="None", font=self.annotation_font)
         self.update_time_remaining()
 
         # Layout
