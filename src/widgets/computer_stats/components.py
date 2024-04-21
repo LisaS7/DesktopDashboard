@@ -4,8 +4,7 @@ from src import config
 
 class Title(ttkb.Label):
     def __init__(self, parent, text):
-        self.font = ttkb.font.Font(family=config.FONT_FAMILY, size=config.PARAGRAPH_SIZE)
-        super().__init__(parent, text=text, font=self.font)
+        super().__init__(parent, text=text)
         self.grid(row=0, column=0, padx=20)
 
 

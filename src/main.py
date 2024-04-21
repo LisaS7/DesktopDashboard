@@ -2,13 +2,17 @@ import ttkbootstrap as ttkb
 from src.widgets.computer_stats.container import StatWidget
 import config
 
-
 class App(ttkb.Window):
     def __init__(self):
         super().__init__(themename=config.THEME_NAME)
         self.stat_frame = StatWidget(master=self)
         self.after(1000, self.update)
         self.layout()
+
+        # Configure Styles
+        s = ttkb.Style()
+        s.configure('TLabelframe.Label', font=(config.FONT_FAMILY, config.HEADING_SIZE))
+        s.configure('TLabel', font=(config.FONT_FAMILY, config.PARAGRAPH_SIZE))
 
     def layout(self):
         self.geometry(f"{config.WINDOW_WIDTH}x{config.WINDOW_HEIGHT}")
