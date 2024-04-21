@@ -1,5 +1,6 @@
 import ttkbootstrap as ttkb
 from .battery import BatteryWidget
+from .cpu import CPUWidget
 from src import config
 
 
@@ -15,5 +16,10 @@ class StatWidget(ttkb.Frame):
         self.battery_widget = BatteryWidget(self)
         self.battery_widget.grid(row=1, column=0, padx=20)
 
+        self.CPU_widget = CPUWidget(self)
+        self.CPU_widget.grid(row=1, column=1, padx=20)
+
     def update(self):
         self.battery_widget.update_battery()
+        self.battery_widget.update_time_remaining()
+        self.CPU_widget.update_cpu()
