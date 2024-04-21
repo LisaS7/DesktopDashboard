@@ -3,6 +3,7 @@ import psutil
 from collections import namedtuple
 from src import config
 
+# todo: remove mock
 # sbattery(percent=93, secsleft=16628, power_plugged=False)
 BatteryMock = namedtuple("BatteryMock", ["percent", "secsleft", "power_plugged"])
 
@@ -18,33 +19,27 @@ class BatteryWidget(ttkb.Frame):
 
         # Create elements
         self.title = ttkb.Label(self, text="Battery", font=self.paragraph_font)
-        self.battery_bar = None
-        self.time_remaining_label = ttkb.Label(self, text="None", font=self.annotation_font)
-
-        self.layout()
-
-    def layout(self):
         self.title.grid(row=0, column=0, padx=20)
-        self.update_battery()
-        self.update_time_remaining()
+        self.bar = None
+        self.label = None
 
-    def update_battery(self):
-        # todo: add if power plugged
+        self.update()
+
+    def update(self):
         battery = BatteryMock(90, 16628, False)  # psutil.sensors_battery()
-        if battery:
-            self.battery_bar = ttkb.Progressbar(self, value=battery.percent, style='Striped')
-            self.battery_bar.grid(row=1, column=0, padx=20, pady=10, sticky="n")
-        else:
-            pass
-        # display power cable icon
-
-    def update_time_remaining(self):
-        battery = BatteryMock(23, 16628, False)  # psutil.sensors_battery()
         minutes_remaining = round(battery.secsleft / 60, 0)
         hours_remaining = round(minutes_remaining / 60, 1)
-        if hours_remaining >= 1:
-            self.time_remaining_label.configure(text=f"{hours_remaining} hours left")
-        else:
-            self.time_remaining_label.configure(text=f"{minutes_remaining} minutes left")
 
-        self.time_remaining_label.grid(row=2, column=0, padx=10, pady=0, sticky="n")
+        if not battery or battery.power_plugged:
+            pass  # todo: display power cable icon
+
+        self.bar = ttkb.Progressbar(self, value=battery.percent, style='Striped')
+        self.bar.grid(row=1, column=0, padx=20, pady=10, sticky="n")
+        self.label = ttkb.Label(self, text="None", font=self.annotation_font)
+
+        if hours_remaining >= 1:
+            self.label.configure(text=f"{hours_remaining} hours left")
+        else:
+            self.label.configure(text=f"{minutes_remaining} minutes left")
+
+        self.label.grid(row=2, column=0, padx=10, pady=0, sticky="n")

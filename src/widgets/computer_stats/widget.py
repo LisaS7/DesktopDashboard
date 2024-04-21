@@ -20,6 +20,5 @@ class StatWidget(ttkb.Frame):
         self.CPU_widget.grid(row=1, column=1, padx=20)
 
     def update(self):
-        self.battery_widget.update_battery()
-        self.battery_widget.update_time_remaining()
-        self.CPU_widget.update_cpu()
+        self.battery_widget.update()
+        self.CPU_widget.update()
