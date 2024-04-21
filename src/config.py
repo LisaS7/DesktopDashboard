@@ -1,8 +1,8 @@
 THEME_NAME = 'darkly'
 
 # Window
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 1200
+WINDOW_WIDTH = 1200
+WINDOW_HEIGHT = 800
 
 # Fonts
 FONT_FAMILY = "Krungthep"

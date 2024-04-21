@@ -17,6 +17,8 @@ class App(ttkb.Window):
         s = ttkb.Style()
         s.configure('TLabelframe.Label', font=(config.FONT_FAMILY, config.HEADING_SIZE))
         s.configure('TLabel', font=(config.FONT_FAMILY, config.PARAGRAPH_SIZE))
+        s.configure('Treeview', font=(config.FONT_FAMILY, config.PARAGRAPH_SIZE))
+        s.configure('Treeview.Heading', font=(config.FONT_FAMILY, config.PARAGRAPH_SIZE))
 
     def layout(self):
         self.geometry(f"{config.WINDOW_WIDTH}x{config.WINDOW_HEIGHT}")
