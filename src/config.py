@@ -1,3 +1,10 @@
+THEME_NAME = 'darkly'
+
+# Window
+WINDOW_WIDTH = 400
+WINDOW_HEIGHT = 240
+
+# Fonts
 FONT_FAMILY = "Krungthep"
 HEADING_SIZE = 14
 PARAGRAPH_SIZE = 12
