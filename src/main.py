@@ -1,5 +1,5 @@
 import ttkbootstrap as ttkb
-from src.widgets.computer_stats.widget import StatWidget
+from src.widgets.computer_stats.container import StatWidget
 import config
 
 
