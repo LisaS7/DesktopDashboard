@@ -25,17 +25,15 @@ class BatteryWidget(ttkb.Frame):
 
     def layout(self):
         self.title.grid(row=0, column=0, padx=20)
-
         self.update_battery()
-        self.battery_bar.grid(row=1, column=0, padx=20, pady=10, sticky="n")
-
         self.update_time_remaining()
-        self.time_remaining_label.grid(row=2, column=0, padx=10, pady=0, sticky="n")
 
     def update_battery(self):
+        # todo: add if power plugged
         battery = BatteryMock(90, 16628, False)  # psutil.sensors_battery()
         if battery:
-            self.battery_bar = ttkb.Progressbar(self, value=battery.percent)
+            self.battery_bar = ttkb.Progressbar(self, value=battery.percent, style='Striped')
+            self.battery_bar.grid(row=1, column=0, padx=20, pady=10, sticky="n")
         else:
             pass
         # display power cable icon
@@ -48,3 +46,5 @@ class BatteryWidget(ttkb.Frame):
             self.time_remaining_label.configure(text=f"{hours_remaining} hours left")
         else:
             self.time_remaining_label.configure(text=f"{minutes_remaining} minutes left")
+
+        self.time_remaining_label.grid(row=2, column=0, padx=10, pady=0, sticky="n")
