@@ -4,6 +4,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
 from .playlists import Playlists
+from .tracks import Tracks
 
 
 class MusicPlayer(ttkb.Labelframe):
@@ -14,8 +15,8 @@ class MusicPlayer(ttkb.Labelframe):
         self.sp = None
         self.spotify_auth()
 
-        playlist_result = self.get_playlists()
-        self.playlists = Playlists(self, playlist_result)
+        self.get_playlists()
+        self.tracks = None
 
     def spotify_auth(self):
         dotenv.load_dotenv()
@@ -29,8 +30,10 @@ class MusicPlayer(ttkb.Labelframe):
         self.sp = sp
 
     def get_playlists(self):
-        playlists = self.sp.current_user_playlists()
-        playlist_dict = {}
-        for playlist in playlists['items']:
-            playlist_dict[playlist['name']] = playlist['id']
-        return playlist_dict
+        result = self.sp.current_user_playlists()
+        self.playlists = Playlists(self, result)
+
+    def get_tracks(self):
+        result = self.sp.playlist(self.playlists.current_playlist)
+        self.tracks = Tracks(self, result['tracks']['items'])
+
