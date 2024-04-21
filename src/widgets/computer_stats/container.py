@@ -4,7 +4,7 @@ from .cpu import CPUWidget
 from .ram import RAMWidget
 
 
-class StatWidget(ttkb.Labelframe):
+class Stats(ttkb.Labelframe):
     def __init__(self, master):
         super().__init__(master, text="Stats")
         self.master = master
