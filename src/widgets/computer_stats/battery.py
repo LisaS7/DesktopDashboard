@@ -1,4 +1,4 @@
-import customtkinter as ctk
+import ttkbootstrap as ttkb
 import psutil
 from collections import namedtuple
 from src import config
@@ -7,31 +7,35 @@ from src import config
 BatteryMock = namedtuple("BatteryMock", ["percent", "secsleft", "power_plugged"])
 
 
-class BatteryWidget(ctk.CTkFrame):
+class BatteryWidget(ttkb.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.master = parent
-        self.paragraph_font = ctk.CTkFont(family=config.FONT_FAMILY, size=config.PARAGRAPH_SIZE)
-        self.annotation_font = ctk.CTkFont(family=config.FONT_FAMILY, size=config.ANNOTATION_SIZE)
-        self.title = ctk.CTkLabel(self, text="Battery", font=self.paragraph_font)
-        # self.battery = BatteryMock(93, 16628, False)  #psutil.sensors_battery()
 
-        self.battery_bar = ctk.CTkProgressBar(self)
-        self.update_battery()
+        # Style
+        self.paragraph_font = ttkb.font.Font(family=config.FONT_FAMILY, size=config.PARAGRAPH_SIZE)
+        self.annotation_font = ttkb.font.Font(family=config.FONT_FAMILY, size=config.ANNOTATION_SIZE)
 
-        self.time_remaining_label = ctk.CTkLabel(self, text="None", font=self.annotation_font)
-        self.update_time_remaining()
+        # Create elements
+        self.title = ttkb.Label(self, text="Battery", font=self.paragraph_font)
+        self.battery_bar = None
+        self.time_remaining_label = ttkb.Label(self, text="None", font=self.annotation_font)
 
-        # Layout
+        self.layout()
+
+    def layout(self):
         self.title.grid(row=0, column=0, padx=20)
+
+        self.update_battery()
         self.battery_bar.grid(row=1, column=0, padx=20, pady=10, sticky="n")
+
+        self.update_time_remaining()
         self.time_remaining_label.grid(row=2, column=0, padx=10, pady=0, sticky="n")
 
     def update_battery(self):
-        battery = BatteryMock(23, 16628, False)  # psutil.sensors_battery()
-        battery_decimal = battery.percent / 100
+        battery = BatteryMock(90, 16628, False)  # psutil.sensors_battery()
         if battery:
-            self.battery_bar.set(battery_decimal)
+            self.battery_bar = ttkb.Progressbar(self, value=battery.percent)
         else:
             pass
         # display power cable icon
