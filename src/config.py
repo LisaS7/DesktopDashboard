@@ -1,7 +1,7 @@
 THEME_NAME = 'darkly'
 
 # Window
-WINDOW_WIDTH = 400
+WINDOW_WIDTH = 600
 WINDOW_HEIGHT = 240
 
 # Fonts
