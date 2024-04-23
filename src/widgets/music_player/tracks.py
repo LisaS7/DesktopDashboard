@@ -12,7 +12,7 @@ class Tracks(ttkb.Treeview):
         self.heading('artist', text='Artist')
         self.heading('album', text='Album')
         self.parse_result(data)
-        self.bind('<<TreeviewSelect>>', self.play_track)
+        self.bind('<<TreeviewSelect>>', self.set_track)
 
     def parse_result(self, data):
         for track in data:
@@ -22,9 +22,9 @@ class Tracks(ttkb.Treeview):
             id = track['track']['id']
             self.insert('', ttkb.END, values=(name, artist, album), iid=id)
 
-    def play_track(self, event):
-        for item in self.selection():
-            self.master.play(item)
+    def set_track(self, event):
+        track = self.selection()[0]
+        self.master.play(track)
 
 
 

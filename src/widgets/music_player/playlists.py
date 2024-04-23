@@ -1,5 +1,4 @@
 import ttkbootstrap as ttkb
-from .tracks import Tracks
 
 
 class Playlists(ttkb.Treeview):
